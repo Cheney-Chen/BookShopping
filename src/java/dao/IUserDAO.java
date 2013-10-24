@@ -11,5 +11,6 @@ import domain.User;
  * @author base
  */
 public interface IUserDAO {
+    public void addUser(String id,String password);
      public User getUserByID(String id);
 }

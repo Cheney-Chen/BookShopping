@@ -32,4 +32,12 @@ public class UserService {
         }
        return false;
     }
+    
+    public void addUser(String id,String password){
+    userDAO.addUser(id, password);
+    }
+    
+    public boolean IsUserExist(String id){
+    return userDAO.getUserByID(id)!=null;
+    }
 }

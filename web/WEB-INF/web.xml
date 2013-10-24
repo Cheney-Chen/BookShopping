@@ -74,6 +74,10 @@
         <servlet-name>UserLogin</servlet-name>
         <servlet-class>action.UserLogin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserRegister</servlet-name>
+        <servlet-class>action.UserRegister</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addBook</servlet-name>
         <url-pattern>/addBook.do</url-pattern>
@@ -129,6 +133,10 @@
     <servlet-mapping>
         <servlet-name>UserLogin</servlet-name>
         <url-pattern>/UserLogin.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserRegister</servlet-name>
+        <url-pattern>/UserRegister.do</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

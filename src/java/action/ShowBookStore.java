@@ -42,6 +42,7 @@ public class ShowBookStore extends HttpServlet {
         int booksCount = bookService.getBooksCount();//取得book總數
         int size = 10;
         int page = 1;//此變數名稱固定在getBooksPages()方法裡
+        
         if (request.getParameter("size") != null &&request.getParameter("page") != null) {//檢查目前page,size
             page = Integer.parseInt(request.getParameter("page"));
             size = Integer.parseInt(request.getParameter("size"));
