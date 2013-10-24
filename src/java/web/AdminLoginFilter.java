@@ -20,11 +20,11 @@ import javax.servlet.http.HttpServletResponse;
 })
 public class AdminLoginFilter implements Filter {
 
-    private String Admin;
+    private String AdminLogin_View;
  
     @Override
     public void init(FilterConfig config) throws ServletException {
-        this.Admin = config.getInitParameter("Admin");
+        this.AdminLogin_View = config.getInitParameter("Admin");
        
     }
 
@@ -37,7 +37,7 @@ public class AdminLoginFilter implements Filter {
          if (req.getSession().getAttribute("adminLogin") != null) {
             chain.doFilter(request, response);
         } else {
-           resp.sendRedirect(Admin);
+           resp.sendRedirect(AdminLogin_View);
         }
     }
 

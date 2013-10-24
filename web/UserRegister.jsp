@@ -15,7 +15,7 @@
     <body>
         <h1>Register</h1>
         <c:import url="BookStoreHyperLink.jsp"></c:import>
-        <form action="UserRegister.do" method="post" onsubmit="return checkNaN(this.price)">
+        <form action="UserRegister.do" method="post" >
             <ul>
                 <li>ID :<input name="id" value=""/></li>
                 <li>password :<input name="password" value=""/></li>

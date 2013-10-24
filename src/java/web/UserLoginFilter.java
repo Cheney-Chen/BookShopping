@@ -28,7 +28,7 @@ public class UserLoginFilter implements Filter {
     // this value is null, this filter instance is not currently
     // configured. 
     private FilterConfig filterConfig = null;
-     private String User;
+     private String UserLogin_View;
     public UserLoginFilter() {
     }    
     
@@ -108,7 +108,7 @@ public class UserLoginFilter implements Filter {
          if (req.getSession().getAttribute("userLogin") != null) {
             chain.doFilter(request, response);
         } else {
-           resp.sendRedirect(User);
+           resp.sendRedirect(UserLogin_View);
         }
     }
 
@@ -140,7 +140,7 @@ public class UserLoginFilter implements Filter {
      */
     @Override
     public void init(FilterConfig filterConfig) {        
-         this.User = filterConfig.getInitParameter("User");
+         this.UserLogin_View = filterConfig.getInitParameter("UserLogin_View");
     }
 
     /**

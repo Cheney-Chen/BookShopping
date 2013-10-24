@@ -10,13 +10,15 @@
         <filter-name>UserLoginFilter</filter-name>
         <filter-class>web.UserLoginFilter</filter-class>
         <init-param>
-            <param-name>User</param-name>
+            <param-name>UserLogin_View</param-name>
             <param-value>UserLogin.jsp</param-value>
         </init-param>
     </filter>
     <filter-mapping>
         <filter-name>UserLoginFilter</filter-name>
         <url-pattern>/ShoppingCarBuy.do</url-pattern>
+        <url-pattern>/ShoppingCarShow.view</url-pattern>
+        <url-pattern>/ShoppingCarCheckOut.do</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>addBook</servlet-name>
@@ -77,6 +79,14 @@
     <servlet>
         <servlet-name>UserRegister</servlet-name>
         <servlet-class>action.UserRegister</servlet-class>
+        <init-param>
+            <param-name>Success_View</param-name>
+            <param-value>ShowBookStore.view</param-value>
+        </init-param>
+        <init-param>
+            <param-name>Error_View</param-name>
+            <param-value>UserRegister.jsp</param-value>
+        </init-param>
     </servlet>
     <servlet-mapping>
         <servlet-name>addBook</servlet-name>

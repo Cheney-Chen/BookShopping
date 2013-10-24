@@ -6,7 +6,9 @@ package action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebInitParam;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,21 +30,30 @@ public class UserRegister extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    private String Success_View;
+    private String Error_View;
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
         String password = request.getParameter("password");
+        String page = Error_View;
 
         UserService userService = (UserService) getServletContext().getAttribute("userService");
 
         if (!userService.IsUserExist(id)) {
             userService.addUser(id, password);
             request.getSession().setAttribute("userLogin", id);
-            response.sendRedirect("ShowBookStore.view");
+            page = Success_View;
         }
-        response.sendRedirect("UserRegister.jsp");
+        response.sendRedirect(page);
+    }
 
+    @Override
+    public void init() throws ServletException {
+        this.Success_View = getServletConfig().getInitParameter("Success_View");
+        this.Error_View = getServletConfig().getInitParameter("Error_View");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
