@@ -331,10 +331,11 @@ public class BookDAO implements IBookDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-
+String sql="";
+sql="SELECT BOOK_ID,BOOK_NAME,BOOK_AUTHOR,BOOK_PUBLISHER,BOOK_PRICE FROM BOOK WHERE BOOK_ID=? OR BOOK_NAME LIKE  ? AND BOOK_AUTHOR LIKE ? AND BOOK_PUBLISHER LIKE ? OR BOOK_PRICE =? ";
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement("SELECT BOOK_ID,BOOK_NAME,BOOK_AUTHOR,BOOK_PUBLISHER,BOOK_PRICE FROM BOOK WHERE BOOK_ID=? OR BOOK_NAME LIKE  ? AND BOOK_AUTHOR LIKE ? AND BOOK_PUBLISHER LIKE ? OR BOOK_PRICE =? ");//以每頁size得到第page頁的內容
+            stmt = conn.prepareStatement(sql);//以每頁size得到第page頁的內容
             stmt.setInt(1,bookCondition.getBook_ID());
             stmt.setString(2, bookCondition.getBook_Name());
              stmt.setString(3, bookCondition.getBook_Author());
