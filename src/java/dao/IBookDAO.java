@@ -6,6 +6,7 @@ package dao;
 
 import domain.Book;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -20,4 +21,5 @@ public String runBookID() throws IOException;
     public boolean isBookExisted(Book book);
       public Set<Book> getAllBooks(Integer page,Integer size) ;
       public Integer getBooksCount();
+      public List<Book> searchBook(Book bookCondition);
 }

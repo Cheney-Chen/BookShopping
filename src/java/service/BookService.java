@@ -55,5 +55,7 @@ public class BookService {
     public Integer getBooksCount() {
         return bookDAO.getBooksCount();
     }
-
+ public List<Book> searchBook(Book bookCondition){
+    return bookDAO.searchBook(bookCondition);
+    }
 }

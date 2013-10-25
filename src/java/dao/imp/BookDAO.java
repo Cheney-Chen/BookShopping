@@ -8,12 +8,15 @@ import dao.IBookDAO;
 import domain.Book;
 import java.io.File;
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.logging.Level;
@@ -320,5 +323,54 @@ public class BookDAO implements IBookDAO {
             }
         }
         return booksCount;
+    }
+
+    @Override
+    public List<Book> searchBook(Book bookCondition) {
+        List<Book> bookList = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+String sql="";
+sql="SELECT BOOK_ID,BOOK_NAME,BOOK_AUTHOR,BOOK_PUBLISHER,BOOK_PRICE FROM BOOK WHERE BOOK_ID=? OR BOOK_NAME LIKE  ? AND BOOK_AUTHOR LIKE ? AND BOOK_PUBLISHER LIKE ? OR BOOK_PRICE =? ";
+        try {
+            conn = dataSource.getConnection();
+            stmt = conn.prepareStatement(sql);//以每頁size得到第page頁的內容
+            stmt.setInt(1,bookCondition.getBook_ID());
+            stmt.setString(2, bookCondition.getBook_Name());
+             stmt.setString(3, bookCondition.getBook_Author());
+             stmt.setString(4, bookCondition.getBook_Publisher());
+             stmt.setInt(5, bookCondition.getBook_Price());
+            rs = stmt.executeQuery();
+          
+            while (rs.next()) {
+                bookList.add(new Book(rs.getInt("BOOK_ID"), rs.getString("BOOK_NAME"), rs.getString("BOOK_AUTHOR"), rs.getString("BOOK_PUBLISHER"), rs.getInt("BOOK_PRICE")));
+            }
+        } catch (SQLException ex1) {
+            throw new RuntimeException(ex1);
+        } finally {
+            if (rs != null) {
+                try {
+                    rs.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            if (stmt != null) {
+                try {
+                    stmt.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+            if (conn != null) {
+                try {
+                    conn.close();
+                } catch (SQLException ex1) {
+                    Logger.getLogger(BookDAO.class.getName()).log(Level.SEVERE, null, ex1);
+                }
+            }
+        }
+        return bookList;
     }
 }

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <!--connection pool-->
     <resource-ref>
         <res-ref-name>jdbc/bookShopping</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+    <!--filter-->
     <filter>
         <filter-name>UserLoginFilter</filter-name>
         <filter-class>web.UserLoginFilter</filter-class>
@@ -20,6 +22,7 @@
         <url-pattern>/ShoppingCarShow.view</url-pattern>
         <url-pattern>/ShoppingCarCheckOut.do</url-pattern>
     </filter-mapping>
+    <!--servlet-->
     <servlet>
         <servlet-name>addBook</servlet-name>
         <servlet-class>action.AddBook</servlet-class>
@@ -88,6 +91,15 @@
             <param-value>UserRegister.jsp</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>BookSearchShow</servlet-name>
+        <servlet-class>action.BookSearchShow</servlet-class>
+    </servlet>
+    <!--servlet mapping-->
+    <servlet>
+        <servlet-name>BookGetPages</servlet-name>
+        <servlet-class>action.BookGetPages</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addBook</servlet-name>
         <url-pattern>/addBook.do</url-pattern>
@@ -147,6 +159,14 @@
     <servlet-mapping>
         <servlet-name>UserRegister</servlet-name>
         <url-pattern>/UserRegister.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookSearchShow</servlet-name>
+        <url-pattern>/BookSearchShow.view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookGetPages</servlet-name>
+        <url-pattern>/BookGetPages.view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
