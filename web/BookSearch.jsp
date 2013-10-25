@@ -36,7 +36,14 @@
                 <li><input type="submit" value="search"/><input type="reset" value="Abort"/></li>
             </ul>
         </form>
-        
+         <br/>第<c:forEach var="page" items="${pageList}">
+             ${page}
+                     </c:forEach>頁
+        <form action="ShowBookStore.view" method="post" onsubmit="return checkNaN(this.size);">
+                <input type="hidden" name="page" value="${page}">
+                <input type="text" size="5" name="size" value="${size}">
+                <input type="submit" name="pageSubmmit" value="每頁顯示"/>
+            </form>
         <table border="1">
               <tr>
                 <th>ID</th>

@@ -30,7 +30,7 @@
          <c:if test="${CarSize>'0'}">
             <a href="<c:url value="ShoppingCarShow.do"/>">購物車</a>${CarSize}
         </c:if>
-          <br/>第<c:forEach var="page" items="${pagesCount}">
+          <br/>第<c:forEach var="page" items="${pageList}">
              ${page}
                      </c:forEach>頁
         <form action="ShowBookStore.view" method="post" onsubmit="return checkNaN(this.size);">

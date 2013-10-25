@@ -33,20 +33,20 @@ public class ShowBookList extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+     
         BookService bookService = (BookService) getServletContext().getAttribute("bookService");//呼叫service
         
         int booksCount = bookService.getBooksCount();//取得book總數
         int size = (request.getParameter("size") != null) ? Integer.parseInt(request.getParameter("size")) : 10;//檢查目前page,size
         int page = (request.getParameter("page") != null) ? Integer.parseInt(request.getParameter("page")) : 1;//此變數名稱固定在getBooksPages()方法裡
 
-        List<StringBuilder> pages = getBooksPages("ShowBookList.view", booksCount, size);//計算需要頁面且回傳超連結
-        Set<Book> bookSet = bookService.getAllBook(Math.min(page, pages.size()), size);//根據page與size查找資料庫book,page不超過size
+        List<StringBuilder> pageList = getBooksPages("ShowBookList.view", booksCount, size);//計算需要頁面且回傳超連結
+        Set<Book> bookSet = bookService.getAllBook(Math.min(page, pageList.size()), size);//根據page與size查找資料庫book,page不超過size
 
         request.setAttribute("page", page);//給頁面目前page
         request.setAttribute("size", size);//給頁面目前size
         request.setAttribute("booksPage", bookSet);//給搜尋結果
-        request.setAttribute("pagesCount", pages);//給超連結
+        request.setAttribute("pageList", pageList);//給超連結
         request.getRequestDispatcher("BookList.jsp").forward(request, response);
 //         BookService bookService=(BookService) getServletContext().getAttribute("bookService");
 //       
@@ -88,13 +88,12 @@ public class ShowBookList extends HttpServlet {
     }
      public List<StringBuilder> getBooksPages(String url, Integer count, Integer size) {//以全部筆數與每頁size計算需要頁數與組出超連結
 
-        List<StringBuilder> pages = new ArrayList<>();
+        List<StringBuilder> pageList = new ArrayList<>();
         for (int i = 1; i <= Math.ceil(count / (double) size); i++) {
-            pages.add(new StringBuilder("<a href='").append(url).append("?page=").append(i).append("&size=").append(size).append("'>").append(i).append("</a>"));
+            pageList.add(new StringBuilder("<a href='").append(url).append("?page=").append(i).append("&size=").append(size).append("'>").append(i).append("</a>"));
         }
-        return pages;
+        return pageList;
     }
-
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP

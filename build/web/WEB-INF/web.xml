@@ -17,7 +17,7 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>UserLoginFilter</filter-name>
+        <filter-name>UserLoginFilter</filter-name><!--必須登入user的頁面-->
         <url-pattern>/ShoppingCarBuy.do</url-pattern>
         <url-pattern>/ShoppingCarShow.view</url-pattern>
         <url-pattern>/ShoppingCarCheckOut.do</url-pattern>

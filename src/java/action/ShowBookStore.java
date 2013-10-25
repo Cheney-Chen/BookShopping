@@ -37,7 +37,7 @@ public class ShowBookStore extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        BookService bookService = (BookService) getServletContext().getAttribute("bookService");//呼叫service
+         BookService bookService = (BookService) getServletContext().getAttribute("bookService");//呼叫service
 
         int booksCount = bookService.getBooksCount();//取得book總數
         int size = 10;
@@ -53,12 +53,12 @@ public class ShowBookStore extends HttpServlet {
         request.getSession().setAttribute("page", page);
         request.getSession().setAttribute("size", size);
 
-        List<StringBuilder> pages = getBooksPages("ShowBookStore.view", booksCount, size);//計算需要頁面且回傳超連結
-        Set<Book> bookSet = bookService.getAllBook(Math.min(page, pages.size()), size);//根據page與size查找資料庫book,page不超過size
+        List<StringBuilder> pageList = getBooksPages("ShowBookStore.view", booksCount, size);//計算需要頁面且回傳超連結
+        Set<Book> bookSet = bookService.getAllBook(Math.min(page, pageList.size()), size);//根據page與size查找資料庫book,page不超過size
 //               request.getSession().setAttribute("page", page);
 //          request.getSession().setAttribute("size", size);
         request.setAttribute("booksPage", bookSet);//反正每次都要查新的,不用活太久
-        request.setAttribute("pagesCount", pages);
+        request.setAttribute("pageList", pageList);
 
 //購物session檢查
         HttpSession session = request.getSession();
@@ -80,11 +80,11 @@ public class ShowBookStore extends HttpServlet {
     }
  public List<StringBuilder> getBooksPages(String url, Integer count, Integer size) {//以全部筆數與每頁size計算需要頁數與組出超連結
 
-        List<StringBuilder> pages = new ArrayList<>();
+        List<StringBuilder> pageList = new ArrayList<>();
         for (int i = 1; i <= Math.ceil(count / (double) size); i++) {
-            pages.add(new StringBuilder("<a href='").append(url).append("?page=").append(i).append("&size=").append(size).append("'>").append(i).append("</a>"));
+            pageList.add(new StringBuilder("<a href='").append(url).append("?page=").append(i).append("&size=").append(size).append("'>").append(i).append("</a>"));
         }
-        return pages;
+        return pageList;
     }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

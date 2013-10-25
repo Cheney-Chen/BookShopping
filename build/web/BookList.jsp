@@ -26,11 +26,11 @@
     </head>
     <body>
         <c:import url="AdminHyperRef.jsp"></c:import>
-        <br/>第<c:forEach var="page" items="${pagesCount}">
+       <br/>第<c:forEach var="page" items="${pageList}">
              ${page}
                      </c:forEach>頁
-                     <form action="ShowBookList.view" method="post" onsubmit="return checkNaN(this.size);">
-              <input type="hidden" name="page" value="${page}">
+        <form action="ShowBookList.view" method="post" onsubmit="return checkNaN(this.size);">
+                <input type="hidden" name="page" value="${page}">
                 <input type="text" size="5" name="size" value="${size}">
                 <input type="submit" name="pageSubmmit" value="每頁顯示"/>
             </form>
@@ -42,7 +42,7 @@
                 <th>出版社</th>
                 <th>價格</th> 
             </tr>
-         <c:forEach var="book" items="${booksPage}">
+         <c:forEach var="book" items="${bookSet}">
         <tr>
         <th>${book.book_ID}</th>
          <th>${book.book_Name}</th>

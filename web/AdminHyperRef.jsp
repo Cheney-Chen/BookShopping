@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        ${adminLogin}<a href="ShowBookList.view">List</a>|<a href="addBook.jsp">Add</a>|<a href="index.jsp">index</a>
+        ${adminLogin}<a href="ShowBookList.view">List</a>|<a href="addBook.jsp">Add</a>|<a href="BookSearchShow.view">Search|<a href="index.jsp">index</a>
     </body>
 </html>
