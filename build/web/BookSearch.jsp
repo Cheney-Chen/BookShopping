@@ -26,7 +26,7 @@
     <body>
         <h1>Search Book</h1>
         <c:import url="AdminHyperRef.jsp"></c:import>
-        <form action="BookSearchShow.view" method="post" onsubmit="return checkNaN(this.price)">
+        <form action="BookSearchShow.view" method="post" >
             <ul>
                  <li>ID :<input name="id" value=""/></li>
                  <li>Name :<input name="name" value=""/></li>

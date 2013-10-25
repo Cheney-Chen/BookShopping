@@ -47,7 +47,7 @@ public class BookDAO implements IBookDAO {
             stmt.setString(2, book.getBook_Author());
             stmt.setString(3, book.getBook_Publisher());
             stmt.setInt(4, book.getBook_Price());
-             stmt.setTimestamp(5, new Timestamp(new Date().getTime()));
+            stmt.setTimestamp(5, new Timestamp(new Date().getTime()));
             stmt.executeUpdate();
         } catch (SQLException ex1) {
             throw new RuntimeException(ex1);
@@ -253,7 +253,7 @@ public class BookDAO implements IBookDAO {
             int rowForPagingCount = 0;
             while (rs.next() && rowForPagingCount < size) {
                 bookSet.add(new Book(rs.getInt("BOOK_ID"), rs.getString("BOOK_NAME"), rs.getString("BOOK_AUTHOR"), rs.getString("BOOK_PUBLISHER"), rs.getInt("BOOK_PRICE")));
-                rowForPagingCount ++;
+                rowForPagingCount++;
             }
         } catch (SQLException ex1) {
             throw new RuntimeException(ex1);
@@ -331,18 +331,55 @@ public class BookDAO implements IBookDAO {
         Connection conn = null;
         PreparedStatement stmt = null;
         ResultSet rs = null;
-String sql="";
-sql="SELECT BOOK_ID,BOOK_NAME,BOOK_AUTHOR,BOOK_PUBLISHER,BOOK_PRICE FROM BOOK WHERE BOOK_ID=? OR BOOK_NAME LIKE  ? AND BOOK_AUTHOR LIKE ? AND BOOK_PUBLISHER LIKE ? OR BOOK_PRICE =? ";
+        StringBuilder sql = new StringBuilder("SELECT BOOK_ID,BOOK_NAME,BOOK_AUTHOR,BOOK_PUBLISHER,BOOK_PRICE FROM BOOK WHERE 1=1 ");
+        int conditionNum = 0;
+        int toggle_ID = 0;
+        int toggle_Name = 0;
+        int toggle_Author=0;
+        int toggle_Publisher=0;
+        int toggle_Price=0;
         try {
             conn = dataSource.getConnection();
-            stmt = conn.prepareStatement(sql);//以每頁size得到第page頁的內容
-            stmt.setInt(1,bookCondition.getBook_ID());
-            stmt.setString(2, bookCondition.getBook_Name());
-             stmt.setString(3, bookCondition.getBook_Author());
-             stmt.setString(4, bookCondition.getBook_Publisher());
-             stmt.setInt(5, bookCondition.getBook_Price());
+            if (bookCondition.getBook_ID() != 0) {
+                sql.append("AND BOOK_ID=?");
+                toggle_ID =++conditionNum;
+            }
+            if (bookCondition.getBook_Name() != null) {
+                sql.append("AND BOOK_NAME LIKE ?");
+                toggle_Name=++conditionNum;
+            }
+            if (bookCondition.getBook_Author() != null) {
+                sql.append("AND BOOK_AUTHOR LIKE ?");
+                toggle_Author=++conditionNum;
+            }
+            if (bookCondition.getBook_Publisher() != null) {
+                sql.append("AND Book_PUBLISHER LIKE ?");
+                toggle_Publisher=++conditionNum;
+            }
+            if (bookCondition.getBook_Price() != 0) {
+                sql.append("AND Book_PRICE = ?");
+                toggle_Price=++conditionNum;
+            }
+            stmt = conn.prepareStatement(sql.toString());//以每頁size得到第page頁的內容
+            
+             if (toggle_ID!=0) {
+                stmt.setInt(toggle_ID, bookCondition.getBook_ID());
+            }
+            if (toggle_Name != 0) {
+                stmt.setString(toggle_Name, bookCondition.getBook_Name());
+            }
+            if (toggle_Author != 0) {
+                 stmt.setString(toggle_Author, bookCondition.getBook_Author());
+            }
+            if (toggle_Publisher != 0) {
+                 stmt.setString(toggle_Publisher, bookCondition.getBook_Publisher());
+            }
+            if (toggle_Price!= 0) {
+                stmt.setInt(toggle_Price, bookCondition.getBook_Price());
+            }
+            
             rs = stmt.executeQuery();
-          
+
             while (rs.next()) {
                 bookList.add(new Book(rs.getInt("BOOK_ID"), rs.getString("BOOK_NAME"), rs.getString("BOOK_AUTHOR"), rs.getString("BOOK_PUBLISHER"), rs.getInt("BOOK_PRICE")));
             }

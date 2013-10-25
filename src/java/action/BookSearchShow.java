@@ -33,16 +33,16 @@ public class BookSearchShow extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-int id = Integer.parseInt(request.getParameter("id"));
-String name="%".concat(request.getParameter("name")).concat("%");
-String author = "%".concat(request.getParameter("author")).concat("%");//取author
+        int id = (request.getParameter("id") != "") ? Integer.parseInt(request.getParameter("id")) : 0;
+        String name = "%".concat(request.getParameter("name")).concat("%");
+        String author = "%".concat(request.getParameter("author")).concat("%");//取author
         String publisher = "%".concat(request.getParameter("publisher")).concat("%");//取publisher
-        int price = Integer.parseInt(request.getParameter("price"));//取price
+        int price = (request.getParameter("price") != "") ? Integer.parseInt(request.getParameter("price")) : 0;//取price
 
-BookService bookService=(BookService) getServletContext().getAttribute("bookService");
-List<Book> bookList= bookService.searchBook(new Book(id,name,author,publisher,price));
-request.setAttribute("bookList", bookList);
-request.getRequestDispatcher("BookSearch.jsp").forward(request, response);
+        BookService bookService = (BookService) getServletContext().getAttribute("bookService");
+        List<Book> bookList = bookService.searchBook(new Book(id, name, author, publisher, price));
+        request.setAttribute("bookList", bookList);
+        request.getRequestDispatcher("BookSearch.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

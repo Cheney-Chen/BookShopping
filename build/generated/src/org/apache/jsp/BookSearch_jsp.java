@@ -81,7 +81,7 @@ public final class BookSearch_jsp extends org.apache.jasper.runtime.HttpJspBase
       if (_jspx_meth_c_import_0(_jspx_page_context))
         return;
       out.write("\n");
-      out.write("        <form action=\"BookSearchShow.view\" method=\"post\" onsubmit=\"return checkNaN(this.price)\">\n");
+      out.write("        <form action=\"BookSearchShow.view\" method=\"post\" >\n");
       out.write("            <ul>\n");
       out.write("                 <li>ID :<input name=\"id\" value=\"\"/></li>\n");
       out.write("                 <li>Name :<input name=\"name\" value=\"\"/></li>\n");
