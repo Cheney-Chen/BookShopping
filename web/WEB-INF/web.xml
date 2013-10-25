@@ -88,6 +88,10 @@
             <param-value>UserRegister.jsp</param-value>
         </init-param>
     </servlet>
+    <servlet>
+        <servlet-name>BookSearchShow</servlet-name>
+        <servlet-class>action.BookSearchShow</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>addBook</servlet-name>
         <url-pattern>/addBook.do</url-pattern>
@@ -147,6 +151,10 @@
     <servlet-mapping>
         <servlet-name>UserRegister</servlet-name>
         <url-pattern>/UserRegister.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BookSearchShow</servlet-name>
+        <url-pattern>/BookSearchShow.view</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
