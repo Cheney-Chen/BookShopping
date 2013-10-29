@@ -5,7 +5,6 @@
 package action;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +35,12 @@ public class AdminLogin extends HttpServlet {
         AdminService adminService = (AdminService) this.getServletContext().getAttribute("adminService");
         if (adminService.validateAdmin(id, password)) {
             request.getSession().setAttribute("adminLogin", id);
+            response.sendRedirect("BookAdd.jsp");
         }
-        response.sendRedirect("addBook.jsp");
+        else{
+        request.setAttribute("error","login failed");
+        request.getRequestDispatcher("AdminLogin.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

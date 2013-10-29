@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(
-        urlPatterns = {"/ShowBookList.view", "/addBook.jsp"}, //"/user_pratice.jsp",
+        urlPatterns = {"/ShowBookList.view", "/BookAdd.jsp"}, //"/user_pratice.jsp",
         initParams = {
     @WebInitParam(name = "Admin", value = "AdminLogin.jsp")
  

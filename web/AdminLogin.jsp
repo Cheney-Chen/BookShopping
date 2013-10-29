@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        ${error}
           <form action="AdminLogin.do" method="post">
             <ul>
                 <li>ID :<input name="id" value=""/></li>

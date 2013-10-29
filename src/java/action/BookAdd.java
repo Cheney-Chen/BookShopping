@@ -5,17 +5,17 @@
 package action;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.UserService;
 
 /**
  *
  * @author base
  */
-public class UserLogin extends HttpServlet {
+public class BookAdd extends HttpServlet {
 
     /**
      * Processes requests for both HTTP
@@ -30,21 +30,24 @@ public class UserLogin extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String id = request.getParameter("id");
-        String password = request.getParameter("password");
-        UserService userService = (UserService) this.getServletContext().getAttribute("userService");
-        if (userService.validateUser(id, password)) {
-            request.getSession().setAttribute("userLogin", id);
-                    request.getRequestDispatcher("ShowBookStore.view").forward(request, response);
+        PrintWriter out = response.getWriter();
+        try {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html PUBLIC \"-//W3C//DTD HTML 4.01 Frameset//EN\" \"http://www.w3.org/TR/html4/frameset.dtd\">");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet BookAdd</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet BookAdd at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        } finally {            
+            out.close();
         }
-        else{
-        request.setAttribute("error","login failed");
-        request.getRequestDispatcher("UserLogin.jsp").forward(request, response);
-        }
-     
     }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP
      * <code>GET</code> method.

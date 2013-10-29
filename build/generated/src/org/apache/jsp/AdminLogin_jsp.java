@@ -51,6 +51,9 @@ public final class AdminLogin_jsp extends org.apache.jasper.runtime.HttpJspBase
       out.write("        <title>JSP Page</title>\n");
       out.write("    </head>\n");
       out.write("    <body>\n");
+      out.write("        ");
+      out.write((java.lang.String) org.apache.jasper.runtime.PageContextImpl.evaluateExpression("${error}", java.lang.String.class, (PageContext)_jspx_page_context, null));
+      out.write("\n");
       out.write("          <form action=\"AdminLogin.do\" method=\"post\">\n");
       out.write("            <ul>\n");
       out.write("                <li>ID :<input name=\"id\" value=\"\"/></li>\n");
